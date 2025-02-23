@@ -4,19 +4,21 @@ let dbConnection
 
 module.exports = {
     connectToDb: (cb) => { 
-        MongoClient.connect('mongodb://localhost:27017/bookstore')
-            .then((client) => {
-                dbConnection = client.db();
-                return cb();
-            }).catch((err) => {
-                console.log(err);
-                return cb(err);
-            })
+        MongoClient.connect("mongodb://127.0.0.1:27017/bookstore")
+			.then((client) => {
+				dbConnection = client.db();
+				return cb();
+			})
+			.catch((err) => {
+				console.log(err);
+				return cb(err);
+			});
     },
 
     getDb: () => {
-        if (dbConnection) {
-            return dbConnection;
+        if (!dbConnection) {
+            throw new Error("Database not initialized. Call connectToDb first.");
         }
+        return dbConnection;
     }
 }
