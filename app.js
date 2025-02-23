@@ -1,6 +1,6 @@
-const express = require('express')
-const { ObjectId } = require('mongodb');
-const { connectToDb, getDb } = require('./db');
+import express from "express";
+import { connectToDb, getDb } from "./db.js";
+import { ObjectId } from "mongodb";
 
 const app = express();
 
@@ -23,8 +23,15 @@ connectToDb((err) => {
 
 // routes
 app.get("/books", (req, res) => {
+
+    const page = req.query.page || 1;
+    const pageSize = req.query.pageSize || 10;
+    const skip = (page - 1) * pageSize;
+
     let books = [];
-    db.collection("books").find({}).toArray().then((result) => {
+    db.collection("books").find({})
+        .skip(skip).limit(pageSize)
+        .toArray().then((result) => {
         res.status(200).json(result);
     }).catch((err) => {
         res.status(500).json({

@@ -1,24 +1,16 @@
-const { MongoClient } = require('mongodb');
+import { MongoClient } from "mongodb";
 
 let dbConnection
 
-module.exports = {
-    connectToDb: (cb) => { 
-        MongoClient.connect("mongodb://127.0.0.1:27017/bookstore")
-			.then((client) => {
-				dbConnection = client.db();
-				return cb();
-			})
-			.catch((err) => {
-				console.log(err);
-				return cb(err);
-			});
-    },
-
-    getDb: () => {
-        if (!dbConnection) {
-            throw new Error("Database not initialized. Call connectToDb first.");
-        }
-        return dbConnection;
-    }
+export const connectToDb = (cb) => {
+    MongoClient.connect('mongodb://127.0.0.1:27017/bookstore')
+        .then((client) => {
+            dbConnection = client.db();
+            return cb();
+        })
+        .catch((err) => {
+            cb(err);
+        });
 }
+
+export const getDb = () => dbConnection
