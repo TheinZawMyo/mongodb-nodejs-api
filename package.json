@@ -1,0 +1,20 @@
+{
+  "name": "mongodb-express-api",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "TZM",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongodb": "^6.13.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
